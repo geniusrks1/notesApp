@@ -3,7 +3,8 @@ import React, { createContext, useState, useEffect } from 'react';
 export const Appcontext=createContext();
 
 const AppcontextProvider = ({children}) => {
-  const[groups,setGroups]=useState(JSON.parse(localStorage.getItem('groups'))||[]);
+  const [groups, setGroups] = useState(JSON.parse(localStorage.getItem('groups')) || []);
+  // const[groups,setGroups]=useState(JSON.parse(localStorage.getItem('groups'))||[]);
   const [notes, setNotes] = useState(JSON.parse(localStorage.getItem('notes')) || {});
   const [selectedGroup, setSelectedGroup] = useState(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
