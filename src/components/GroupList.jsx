@@ -1,9 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Appcontext } from '../context/AppcontextProvider';
 import groupImage from '../images/Group 24.png';
 
 const GroupList = () => {
     const { groups, setSelectedGroup, setIsPopupOpen } = useContext(Appcontext);
+    const [selectedGroupName, setSelectedGroupName] = useState(null);
 
     const getAbbreviation = (group) => {
         if (!group || !group.name) return '';
@@ -14,6 +15,11 @@ const GroupList = () => {
         } else {
             return group.name.slice(0, 2).toUpperCase();
         }
+    };
+
+    const handleGroupClick = (group) => {
+        setSelectedGroup(group.name);
+        setSelectedGroupName(group.name);
     };
 
     const styles = {
@@ -45,6 +51,9 @@ const GroupList = () => {
             alignItems: 'center',
             marginBottom: '10px',
             cursor: 'pointer',
+            backgroundColor: (group) => group.name === selectedGroupName ? '#e0e0e0' : 'transparent',
+            borderRadius: '5px',
+            padding: '5px',
         },
         circularBox: {
             width: '40px',
@@ -86,8 +95,8 @@ const GroupList = () => {
                 {groups.map((group, index) => (
                     <li
                         key={index}
-                        style={styles.listItem}
-                        onClick={() => setSelectedGroup(group.name)}
+                        style={{ ...styles.listItem, backgroundColor: group.name === selectedGroupName ? 'rgba(47, 47, 47, 0.17)' : 'transparent' }}
+                        onClick={() => handleGroupClick(group)}
                     >
                         <div style={{ ...styles.circularBox, backgroundColor: group.color }}>
                             {getAbbreviation(group)}
